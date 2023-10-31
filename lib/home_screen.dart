@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:short_it/functions/api_services.dart';
+import 'package:short_it/functions/functions.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -44,17 +47,36 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(
               height: 30,
             ),
-            ElevatedButton(onPressed: () {}, child: const Text('Short URL')),
+            ElevatedButton(
+                onPressed: () async {
+                  final shortenedUrl =
+                      await shortenUrl(url: urlController.text);
+                  setState(() {
+                    _shortenedUrl = shortenedUrl;
+                  });
+                },
+                child: const Text('Short URL')),
             Row(
               children: [
-                Text(
-                  'Shortened Url : $_shortenedUrl',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
+                Container(
+                  width: size.width * 0.65,
+                  child: Text(
+                    'Shortened Url : $_shortenedUrl',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Clipboard.setData(ClipboardData(text: '$_shortenedUrl'))
+                        .then(
+                      (value) => showSnackbar(
+                        context,
+                        'Url copied to clipboard',
+                      ),
+                    );
+                  },
                   icon: const Icon(
                     Icons.copy,
                   ),
