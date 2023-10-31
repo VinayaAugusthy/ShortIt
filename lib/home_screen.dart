@@ -49,40 +49,45 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             ElevatedButton(
                 onPressed: () async {
-                  final shortenedUrl =
-                      await shortenUrl(url: urlController.text);
-                  setState(() {
-                    _shortenedUrl = shortenedUrl;
-                  });
+                  if (isValidUrl(urlController.text)) {
+                    final shortenedUrl =
+                        await shortenUrl(url: urlController.text);
+                    setState(() {
+                      _shortenedUrl = shortenedUrl;
+                    });
+                  } else {
+                    showSnackbar(context, 'Please enter a valid url');
+                  }
                 },
                 child: const Text('Short URL')),
-            Row(
-              children: [
-                Container(
-                  width: size.width * 0.65,
-                  child: Text(
-                    'Shortened Url : $_shortenedUrl',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
+            if (_shortenedUrl != null)
+              Row(
+                children: [
+                  SizedBox(
+                    width: size.width * 0.65,
+                    child: Text(
+                      'Shortened Url : $_shortenedUrl',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    Clipboard.setData(ClipboardData(text: '$_shortenedUrl'))
-                        .then(
-                      (value) => showSnackbar(
-                        context,
-                        'Url copied to clipboard',
-                      ),
-                    );
-                  },
-                  icon: const Icon(
-                    Icons.copy,
+                  IconButton(
+                    onPressed: () {
+                      Clipboard.setData(ClipboardData(text: '$_shortenedUrl'))
+                          .then(
+                        (value) => showSnackbar(
+                          context,
+                          'Url copied to clipboard',
+                        ),
+                      );
+                    },
+                    icon: const Icon(
+                      Icons.copy,
+                    ),
                   ),
-                ),
-              ],
-            )
+                ],
+              )
           ],
         ),
       ),
