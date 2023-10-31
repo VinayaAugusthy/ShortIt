@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
             TextFormField(
               controller: urlController,
               decoration: InputDecoration(
-                labelText: 'Enter yoour URL here',
+                labelText: 'Enter your URL here',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
