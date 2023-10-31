@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:short_it/functions/api_services.dart';
@@ -55,6 +56,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   setState(() {
                     _shortenedUrl = shortenedUrl;
                   });
+                  await FirebaseFirestore.instance.collection('urls').add({
+                  'originalUrl': urlController.text,
+                  'shortenedUrl': shortenedUrl,
+                });
                 } else {
                   showSnackbar(context, 'Please enter a valid url');
                 }
