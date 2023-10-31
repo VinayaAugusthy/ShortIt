@@ -48,18 +48,19 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 30,
             ),
             ElevatedButton(
-                onPressed: () async {
-                  if (isValidUrl(urlController.text)) {
-                    final shortenedUrl =
-                        await shortenUrl(url: urlController.text);
-                    setState(() {
-                      _shortenedUrl = shortenedUrl;
-                    });
-                  } else {
-                    showSnackbar(context, 'Please enter a valid url');
-                  }
-                },
-                child: const Text('Short URL')),
+              onPressed: () async {
+                if (isValidUrl(urlController.text)) {
+                  final shortenedUrl =
+                      await shortenUrl(url: urlController.text);
+                  setState(() {
+                    _shortenedUrl = shortenedUrl;
+                  });
+                } else {
+                  showSnackbar(context, 'Please enter a valid url');
+                }
+              },
+              child: const Text('Short URL'),
+            ),
             if (_shortenedUrl != null)
               Row(
                 children: [
