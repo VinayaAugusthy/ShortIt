@@ -1,6 +1,6 @@
 # short_it
 
-A new Flutter project.
+A url shortenning flutter application to store urls in firebase using api integration.
 
 ## Getting Started
 
