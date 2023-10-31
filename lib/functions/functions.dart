@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 showSnackbar(BuildContext context, String content) {
   ScaffoldMessenger.of(context).showSnackBar(
@@ -14,6 +15,7 @@ showSnackbar(BuildContext context, String content) {
     ),
   );
 }
+
 bool isValidUrl(String url) {
   RegExp urlRegExp = RegExp(
     r'^(https?://)?' // Optional scheme (http:// or https://)
@@ -23,4 +25,15 @@ bool isValidUrl(String url) {
     caseSensitive: false, // Case-insensitive matching
   );
   return urlRegExp.hasMatch(url);
+}
+
+redirectUrl(String newUrl) async{
+ await launchUrl(Uri.parse(newUrl));
+}
+
+
+height(double height) {
+  return SizedBox(
+    height: height,
+  );
 }

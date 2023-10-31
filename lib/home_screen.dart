@@ -45,9 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 30,
-            ),
+            height(30),
             ElevatedButton(
               onPressed: () async {
                 if (isValidUrl(urlController.text)) {
@@ -64,19 +62,22 @@ class _HomeScreenState extends State<HomeScreen> {
                 } else {
                   showSnackbar(context, 'Please enter a valid url');
                 }
-                
               },
               child: const Text('Short URL'),
             ),
+            height(10),
             if (_shortenedUrl != null)
               Row(
                 children: [
                   SizedBox(
                     width: size.width * 0.65,
-                    child: Text(
-                      'Shortened Url : $_shortenedUrl',
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
+                    child: GestureDetector(
+                      onTap: () => redirectUrl('$_shortenedUrl'),
+                      child: Text(
+                        'Shortened Url : $_shortenedUrl',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
