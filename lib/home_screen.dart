@@ -55,14 +55,16 @@ class _HomeScreenState extends State<HomeScreen> {
                       await shortenUrl(url: urlController.text);
                   setState(() {
                     _shortenedUrl = shortenedUrl;
+                    urlController.clear();
                   });
                   await FirebaseFirestore.instance.collection('urls').add({
-                  'originalUrl': urlController.text,
-                  'shortenedUrl': shortenedUrl,
-                });
+                    'originalUrl': urlController.text,
+                    'shortenedUrl': shortenedUrl,
+                  });
                 } else {
                   showSnackbar(context, 'Please enter a valid url');
                 }
+                
               },
               child: const Text('Short URL'),
             ),
